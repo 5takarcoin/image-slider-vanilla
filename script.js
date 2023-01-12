@@ -62,3 +62,8 @@ right.addEventListener("click", () => {
 left.addEventListener("click", () => {
   slideNumber > 0 ? prevSlide() : lastSlide();
 });
+
+setInterval(() => {
+  slideNumber = (slideNumber + 1) % length;
+  slide();
+}, 5000);
