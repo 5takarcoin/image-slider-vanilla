@@ -7,6 +7,10 @@ const images = document.querySelectorAll(".image");
 let slideNumber = 0;
 const length = images.length;
 
+let start = Date.now();
+
+let forward = true;
+
 for (let i = 0; i < length; i++) {
   const div = document.createElement("div");
   div.classList.add("button");
@@ -16,54 +20,50 @@ for (let i = 0; i < length; i++) {
 const buttons = document.querySelectorAll(".button");
 
 buttons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-        slideNumber = index;
-        slide();
-    })
-})
+  button.addEventListener("click", () => {
+    slideNumber = index;
+    slide();
+  });
+});
 
 const buttonColor = () => {
-    buttons.forEach(button => {
-        button.style.backgroundColor = "transparent";
-    });
-    buttons[slideNumber].style.backgroundColor = "white"
-}
+  buttons.forEach((button) => {
+    button.style.backgroundColor = "transparent";
+  });
+  buttons[slideNumber].style.backgroundColor = "white";
+};
 
 const slide = () => {
   slider.style.transform = `translateX(-${800 * slideNumber}px)`;
   buttonColor();
-};
-
-const firstSlide = () => {
-  slideNumber = 0;
-  slide();
-};
-const lastSlide = () => {
-  slideNumber = length - 1;
-  slide();
+  start = Date.now();
 };
 
 const nextSlide = () => {
-  slideNumber++;
+  slideNumber = (slideNumber + 1) % length;
   slide();
 };
 
 const prevSlide = () => {
-  slideNumber--;
+  slideNumber = (slideNumber - 1 + length) % length;
   slide();
 };
 
 slide();
 
 right.addEventListener("click", () => {
-  slideNumber < length - 1 ? nextSlide() : firstSlide();
+  nextSlide();
+  forward = true;
 });
 
 left.addEventListener("click", () => {
-  slideNumber > 0 ? prevSlide() : lastSlide();
+  prevSlide();
+  forward = false;
 });
 
 setInterval(() => {
-  slideNumber = (slideNumber + 1) % length;
-  slide();
-}, 5000);
+  if (Date.now() - start >= 5000) {
+    if (forward) nextSlide();
+    else prevSlide();
+  }
+}, 1000);

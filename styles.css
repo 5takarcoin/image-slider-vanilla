@@ -25,14 +25,22 @@ body {
     gap: 50px;
 }
 
+.arrow-box {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .arrow {
-    height: 120px;
+    height: 90px;
     cursor: pointer;
     transition: height 0.3s ease;
+    position: relative;
 }
 
 .arrow:hover {
-    height: 150px;
+    height: 110px;
 }
 
 .right {
@@ -65,8 +73,8 @@ body {
 }
 
 .button {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     border: 1px solid white;
     cursor: pointer;
